@@ -6,8 +6,8 @@ class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   final String nama = "Ahmad Keenan Aryasatya Gamal";
-  final String npm = "2406398186 //npm";
-  final String kelas = "D";
+  final String npm = "2406398186";
+  final String kelas = "F";
 
   final List<MenuItem> items = const [
     MenuItem(name: "See Football News", icon: Icons.newspaper),
@@ -64,9 +64,7 @@ class MyHomePage extends StatelessWidget {
                     crossAxisCount: 3,
                     shrinkWrap: true,
                     children: items
-                        .map(
-                          (item) => ItemCard(item: item),
-                        )
+                        .map((item) => ItemCard(item: item))
                         .toList(),
                   ),
                 ],
