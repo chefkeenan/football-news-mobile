@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:football_news/widgets/left_drawer.dart';
-import 'package:football_news/screens/newslist_form.dart';
 import 'package:football_news/widgets/news_card.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -10,10 +9,10 @@ class MyHomePage extends StatelessWidget {
   final String npm = "2406398186 //npm";
   final String kelas = "D";
 
-  final List<ItemHomepage> items = const [
-    ItemHomepage("See Football News", Icons.newspaper),
-    ItemHomepage("Add News", Icons.add),
-    ItemHomepage("Logout", Icons.logout),
+  final List<MenuItem> items = const [
+    MenuItem(name: "See Football News", icon: Icons.newspaper),
+    MenuItem(name: "Add News", icon: Icons.add),
+    MenuItem(name: "Logout", icon: Icons.logout),
   ];
 
   @override
@@ -22,10 +21,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Football News',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -45,9 +41,7 @@ class MyHomePage extends StatelessWidget {
                 InfoCard(title: 'Class', content: kelas),
               ],
             ),
-
             const SizedBox(height: 16.0),
-
             Center(
               child: Column(
                 children: [
@@ -61,7 +55,6 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   GridView.count(
                     primary: false,
                     physics: const NeverScrollableScrollPhysics(),
@@ -70,9 +63,11 @@ class MyHomePage extends StatelessWidget {
                     mainAxisSpacing: 10,
                     crossAxisCount: 3,
                     shrinkWrap: true,
-                    children: items.map((ItemHomepage item) {
-                      return ItemCard(item);
-                    }).toList(),
+                    children: items
+                        .map(
+                          (item) => ItemCard(item: item),
+                        )
+                        .toList(),
                   ),
                 ],
               ),
@@ -102,71 +97,10 @@ class InfoCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8.0),
             Text(content, textAlign: TextAlign.center),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ItemHomepage {
-  final String name;
-  final IconData icon;
-
-  const ItemHomepage(this.name, this.icon);
-}
-
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Theme.of(context).colorScheme.secondary,
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!")),
-            );
-
-              if (item.name == "Add News") {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const NewsFormPage()),
-    );
-  }
-        },
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );
